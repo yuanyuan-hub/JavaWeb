@@ -7,6 +7,27 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
+        int i = 10000;
+        for ( i = 10000; i < 100000; i++) {
+            if(sum(i)) {
+                System.out.print(i + " ");
+            }
+        }
+    }
+
+    private static boolean sum(int i) {
+        int a1 = (i/10000)*(i%10000);
+        int a2 = (i/1000)*(i%1000);
+        int a3 = (i/100)*(i%100);
+        int a4 = (i/10)*(i%10);
+        if(a1+a2+a3+a4 == i) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void main1(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String str = scanner.nextLine();
         String number[] = str.split(" ");
