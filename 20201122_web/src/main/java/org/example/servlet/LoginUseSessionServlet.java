@@ -5,13 +5,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 //注解的使用：小括号包裹多个属性，属性名=属性值，多个之间逗号间隔，属性名为value时可以缺省
 //Servlet定义服务：注意服务路径必须是/开始，否则tomcat启动就会报错
-@WebServlet("/login301")
-public class Login301Servlet extends HttpServlet {
+@WebServlet("/loginUseSession")
+public class LoginUseSessionServlet extends HttpServlet {
 
     /**
      * 每次http请求映射到某个Servlet的资源路径，都会调用service生命周期方法
@@ -31,21 +32,25 @@ public class Login301Servlet extends HttpServlet {
         String u = req.getParameter("username");
         String p = req.getParameter("password");
         System.out.printf("=====================用户名（%s）密码（%s）%n", u, p);
-        if("abc".equals(u) && "123".equals(p)) {
-            //重定向：http响应状态码设置为301/302/307，响应头Location
-            resp.sendRedirect("home.html");
-        }else if("abc".equals(u)){
-            //转发
-            req.getRequestDispatcher("home.html").forward(req, resp);
+
+        //返回响应数据
+        PrintWriter pw = resp.getWriter();//response获取io输出流
+        if("abc".equals(u) & "123".equals(p)){//模拟数据库账号密码校验
+            //获取session信息（从客户端获取jsessionid，在服务端Map中找到session对象）
+            // 参数为false：如果获取不到，返回null
+            //参数为true，如果获取不到，创建一个（服务端创建），再返回
+            HttpSession session = req.getSession();//无参默认是true
+            session.setAttribute("username", u);
+            session.setAttribute("password", p);
+            //真实操作时，可以查询数据库用户信息，转换为一个用户对象
+//            session.setAttribute("user", user);
+            pw.println("登录成功");
+            pw.println("<h3>欢迎你，"+u+"</h3>");
         }else{
-            //返回响应数据
-            PrintWriter pw = resp.getWriter();//response获取io输出流
-            pw.println("登录失败");
-            pw.println("<h3>用户名："+u+"或密码错误</h3>");
-            pw.flush();//有缓冲的io操作，需要刷新缓冲区，才会真正的发送数据
-            pw.close();//io流操作完，一定要记住关闭资源
+            pw.println("用户名密码错误，登录失败");
         }
 
-
+        pw.flush();//有缓冲的io操作，需要刷新缓冲区，才会真正的发送数据
+        pw.close();//io流操作完，一定要记住关闭资源
     }
 }
