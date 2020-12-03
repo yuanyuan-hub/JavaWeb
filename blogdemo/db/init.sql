@@ -34,3 +34,6 @@ insert into article(title, content, user_id) value('插入','public ',1);
 -- 主外键关联的表，默认创建的主外键约束是restrict严格模式，
 -- 比如从表有数据关联到主表某一行数据X，那X不能删
 -- 真实的设计上是使用不删除物理数据，在每一张表上设计一个字段，表示是否有效
+
+select  id, username, password, nickname, sex, birthday, head from user where username='a';
+select id,title from article where user_id=1;
