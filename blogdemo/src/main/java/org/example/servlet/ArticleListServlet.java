@@ -18,12 +18,12 @@ public class ArticleListServlet extends AbstractBaseServlet{
         //获取session，如果没有就返回null
         HttpSession session = req.getSession(false);
        // boolean notLogin = false;
-        if(session == null)
-            throw new AppException("ART002","用户没有登录，不允许访问");
+//        if(session == null)
+//            throw new AppException("ART002","用户没有登录，不允许访问");
         //获取登录时创建的session保存的用户信息
         User user =(User) session.getAttribute("user");
-        if(user == null)
-            throw new AppException("ART003","会话异常，请重新登录");
+//        if(user == null)
+//            throw new AppException("ART003","会话异常，请重新登录");
         //用户一登录，并且保存了用户信息
         List<Article> articles = ArticleDAO.queryByUserId(user.getId());
         return articles;

@@ -132,7 +132,7 @@ function articleSubmit(){
     // 修改博客文章，提交数据：title,content,id
 	if(type=="add"){
 		uri = "articleAdd";
-		json.id = '<%=request.getParameter("id")%>';
+		<%--json.id = '<%=request.getParameter("id")%>';--%>
 	}else if(type=="update"){
 		uri = "articleUpdate";
 		json.id = articleId;

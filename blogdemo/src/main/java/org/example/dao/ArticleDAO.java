@@ -38,4 +38,97 @@ public class ArticleDAO {
             DBUtil.close(c,ps,rs);
         }
     }
+
+    public static int delete(String[] split) {
+        Connection c = null;
+        PreparedStatement ps =null;
+        try{
+            c = DBUtil.getConnection();
+            StringBuilder sql =new StringBuilder("delete from article where id in(") ;
+           // sql +="";//new StringBuilder(sql).append("").toString();
+            for (int i = 0; i < split.length; i++) {
+                if(i != 0 )
+                    sql.append(",");
+                sql.append("?");
+            }
+            sql.append(")");
+            ps = c.prepareStatement(sql.toString());
+            //设置占位符的值
+            for (int i = 0; i < split.length; i++) {
+                ps.setInt(i+1,Integer.parseInt(split[i]));
+            }
+            return ps.executeUpdate();
+        }catch (Exception e) {
+            throw new AppException("ART004","文章删除操作出错",e);
+        }finally {
+            DBUtil.close(c,ps);
+        }
+    }
+
+    public static int insert(Article a) {
+        Connection c = null;
+        PreparedStatement ps =null;
+        try{
+            c = DBUtil.getConnection();
+           String sql = "insert into article(title,content,user_id)" +
+                   " values(?,?,?)";
+            ps = c.prepareStatement(sql);
+            //替换占位符的值
+          ps.setString(1,a.getTitle());
+          ps.setString(2,a.getContent());
+          ps.setInt(3,a.getUserid());
+            return ps.executeUpdate();
+        }catch (Exception e) {
+            throw new AppException("ART005","新增文章操作出错",e);
+        }finally {
+            DBUtil.close(c,ps);
+        }
+    }
+
+    public static Article query(int id) {
+        Connection c = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            c = DBUtil.getConnection();
+            String sql = "select id,title,content from article where id=?";
+            ps = c.prepareStatement(sql);
+            //设置占位符
+            ps.setInt(1,id);
+            rs = ps.executeQuery();
+            Article a = null;
+            while (rs.next()) {
+                a = new Article();
+                //根据结果集设置文章属性
+                a.setId(id);
+                a.setTitle(rs.getString("title"));
+                a.setContent(rs.getString("content"));
+            }
+            return a;
+        }catch (Exception e) {
+            throw new AppException("ART006","查询文章详情出错",e);
+        }finally {
+            DBUtil.close(c,ps,rs);
+        }
+    }
+
+    public static int update(Article a) {
+        Connection c = null;
+        PreparedStatement ps = null;
+        try{
+            c = DBUtil.getConnection();
+            String sql = "update article set title=?,content=? where id=?";
+            ps = c.prepareStatement(sql);
+            //设置占位符
+            ps.setString(1,a.getTitle());
+            ps.setString(2,a.getContent());
+            ps.setInt(3,a.getId());
+           return ps.executeUpdate();
+        }catch (Exception e) {
+            throw new AppException("ART007","修改文章操作出错",e);
+        }finally {
+            DBUtil.close(c,ps);
+        }
+    }
 }
+

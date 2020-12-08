@@ -1,13 +1,16 @@
 package org.example.servlet;
 
+import org.example.dao.ArticleDAO;
 import org.example.dao.LoginDAO;
 import org.example.exaeption.AppException;
+import org.example.model.Article;
 import org.example.model.User;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @WebServlet("/login")
 public class LoginServlet  extends AbstractBaseServlet{
@@ -25,7 +28,8 @@ public class LoginServlet  extends AbstractBaseServlet{
         //登录成功，创建session
         HttpSession session = req.getSession();
         session.setAttribute("user",user);
-        return null;
+        List<Article> articles = ArticleDAO.queryByUserId(user.getId());
+        return user;
 
 //        if("abc".equals(username)) {//模拟用户名密码校验
 //            return null;
