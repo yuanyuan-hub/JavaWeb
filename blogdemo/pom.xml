@@ -79,7 +79,7 @@
 
     <build>
         <!-- 打包后的包名（和我们部署的项目名一致） -->
-        <finalName>blogdemo</finalName>
+        <finalName>blogdemo_war_exploded</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
