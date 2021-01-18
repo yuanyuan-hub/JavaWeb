@@ -1,0 +1,41 @@
+import java.util.*;
+
+/*
+ * public class TreeNode {
+ *   int val = 0;
+ *   TreeNode left = null;
+ *   TreeNode right = null;
+ * }
+ */
+
+public class Solution {
+    /**
+     * 
+     * @param root TreeNode类 the root of binary tree
+     * @return int整型二维数组
+     */
+        int a = 0,b = 0, c = 0;
+    public int[][] threeOrders (TreeNode root) {
+        // write code here
+        int[][] num = new int[3][getRootSize(root)];
+        preOrder(root,num);
+        return num;
+    }
+    private void preOrder(TreeNode root,int[][] num) {
+        if(root == null) {
+            return;
+        }
+        num[0][a++] = root.val;
+        preOrder(root.left,num);
+        num[1][b++] = root.val;
+        preOrder(root.right,num);
+        num[2][c++] = root.val;
+    }
+    
+    private int getRootSize(TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+                    return 1 + getRootSize(root.left) + getRootSize(root.right);
+    }
+}
