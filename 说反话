@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()) {
+            String str = sc.nextLine();
+            char[] chars = str.toCharArray();
+            int count = str.length();
+            int end = count;
+            for(int i = count - 1; i > 0; i--) {
+                if(' ' == chars[i]){
+                    for(int j = i+1; j < end ; j++) {
+                        System.out.print(chars[j]);
+                    }
+                    System.out.print(" ");
+                    end = i;
+                }
+            }
+            for(int i = 0; i < end; i++) {
+                System.out.print(chars[i]);
+            }
+           //  System.out.println();
+        }
+    }
+}
