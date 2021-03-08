@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()){
+            String str = sc.nextLine();
+            char[] c = str.toCharArray();
+            int max = 0;
+            int count = 0;
+            int end = 0;
+            for(int i = 0; i < str.length();i++) {
+                if(c[i] >= '0' && c[i] <= '9'){
+                    count++;
+                    if(count > max) {
+                        max = count;
+                        end = i;
+                    }
+                } else {
+                    count = 0;
+                }
+            }
+            System.out.println(str.substring(end - max + 1,end+1));
+        }
+    }
+}
