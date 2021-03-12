@@ -1,0 +1,30 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * longest common substring
+     * @param str1 string字符串 the string
+     * @param str2 string字符串 the string
+     * @return string字符串
+     */
+    public String LCS (String str1, String str2) {
+        // write code here
+        StringBuilder sb = new StringBuilder();
+        int start = 0;
+        int end = 1;
+        while(end < str1.length() + 1) {
+            if(str2.contains(str1.substring(start, end))) {
+                if(sb.length() < end - start) {
+                    sb.delete(0, sb.length());
+                    sb.append(str1.substring(start, end));
+                }
+                end++;
+            } else {
+                start++;
+            }
+        }
+        return sb.toString();
+        
+    }
+}
