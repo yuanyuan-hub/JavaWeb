@@ -1,0 +1,45 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+    static class TreeNode {
+        char val;
+        TreeNode left, right;
+        
+        TreeNode(char x) {
+            val = x;
+        }
+    }
+    
+    private static int index = 0;
+    
+    public static void main(String[] args) throws IOException {
+        // 读取先序序列
+        String nodes = new BufferedReader(new InputStreamReader(System.in)).readLine();
+        TreeNode root = new Main().buildTree(nodes.toCharArray());
+        inOrder(root);
+    }
+    
+    // 建立树
+    public TreeNode buildTree(char[] nodes) {
+        if(nodes.length <= index || nodes[index] == '#') {
+            index++;
+            return null;
+        }
+        TreeNode root = new TreeNode(nodes[index++]);
+        root.left = buildTree(nodes);
+        root.right = buildTree(nodes);
+        return root;
+    }
+    
+    // 中序遍历
+    public static void inOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.left);
+        System.out.print(root.val + " ");
+        inOrder(root.right);
+    }
+}
