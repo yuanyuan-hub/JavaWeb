@@ -1,0 +1,45 @@
+import java.util.*;
+
+class TreeNode{
+    TreeNode left;
+    TreeNode right;
+    char val;
+    
+    public TreeNode(char val) {
+        this.val = val;
+    }
+}
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()) {
+            String str = sc.nextLine();
+            inOrder(creatTree(str));
+            System.out.println();
+        }
+    }
+    
+    private static int index = 0;
+    private static TreeNode creatTree(String str) {
+        char temp = str.charAt(index);
+        if(temp == '#') {
+            return null;
+        }
+        TreeNode cur = new TreeNode(temp);
+        index++;
+        cur.left = creatTree(str);
+        index++;
+        cur.right = creatTree(str);
+        return cur;
+    }
+    
+    private static void inOrder(TreeNode root) {
+        if(root == null) {
+            return;
+        }
+        inOrder(root.left);
+        System.out.print(root.val + " ");
+        inOrder(root.right);
+    }
+}
