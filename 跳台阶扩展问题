@@ -1,0 +1,9 @@
+public class Solution {
+    public int jumpFloorII(int target) {
+        int sum = 1;
+        for(int i = 1; i < target;i++) {
+            sum *= 2;
+        }
+        return sum;
+    }
+}
