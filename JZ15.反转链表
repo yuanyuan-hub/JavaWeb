@@ -1,0 +1,29 @@
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+public class Solution {
+    public ListNode ReverseList(ListNode head) {
+        if(head == null) {
+            return null;
+        }
+        ListNode pHead = null;
+        ListNode prev = null;
+        ListNode cur = head;
+        while(cur != null) {
+            ListNode curNext = cur.next;
+            if(curNext == null) {
+                pHead = cur;
+            }
+            cur.next = prev;
+            prev = cur;
+            cur = curNext;
+        }
+        return pHead;
+    }
+}
