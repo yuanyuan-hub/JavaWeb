@@ -1,0 +1,23 @@
+public class Solution {
+    public int StrToInt(String str) {
+        if(str.length() == 0) return 0;
+        char[] c = str.toCharArray();
+        int result = 0;
+        for(int i = 0; i < str.length(); i++) {
+            if(c[i] >= '0' && c[i] <= '9') {
+                result = result*10 + (c[i] - '0');
+            } else if(i == 0 && (c[i] == '+' || c[i] =='-')) {
+                
+            } else {
+                return 0;
+            }
+        }
+        if(c[0] == '+' || (c[0] >= '0' && c[0] <= '9')){
+            return result;
+        } 
+        if(c[0] == '-') {
+            return result*(-1);
+        }
+        return 0;
+    }
+}
