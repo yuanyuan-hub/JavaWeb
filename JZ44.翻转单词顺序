@@ -1,0 +1,17 @@
+public class Solution {
+    public String ReverseSentence(String str) {
+        if(str == null || str.length() == 1) return str;
+        StringBuffer sb = new StringBuffer();
+        char[] c = str.toCharArray();
+        int index = str.length()-1;
+        for(int i = str.length() - 1; i >= 0; i--) {
+            if(c[i] == ' ') {
+                sb.append(str,i+1,index+1);
+                index = i-1;
+                sb.append(" ");
+            }
+        }
+        sb.append(str,0,index+1);
+        return sb.toString();
+    }
+}
